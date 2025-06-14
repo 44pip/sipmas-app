@@ -3,8 +3,8 @@ import "./assets/tailwind.css";
 import { Route, Routes } from "react-router-dom";
 const Loading = React.lazy(() => import("./components/Loading"));
 const Dashboard = React.lazy(() => import("./pages/Dashboard"));
-const GuestLayout = React.lazy(() => import("./Layouts/GuestLayout"));
-const AuthLayout = React.lazy(() => import("./Layouts/AuthLayout"));
+const GuestLayout = React.lazy(() => import("./layouts/GuestLayout"));
+const AuthLayout = React.lazy(() => import("./layouts/AuthLayout"));
 const MainLayout = React.lazy(() => import("./layouts/MainLayout"))
 
 function App() {

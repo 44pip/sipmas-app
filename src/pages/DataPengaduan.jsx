@@ -1,3 +1,4 @@
+import { MdOutlineDeleteOutline } from "react-icons/md";
 import React, { useEffect, useState } from "react";
 import { pengaduanAPI } from "../services/adminApi";
 
@@ -20,6 +21,19 @@ export default function DataPengaduan() {
     fetchData();
   }, []);
 
+  const handleDelete = async (id) => {
+    const konfirmasi = confirm("Yakin ingin menghapus pengaduan ini?");
+    if (!konfirmasi) return;
+
+    try {
+      await pengaduanAPI.deletePengaduan(id);
+      fetchData(); // refresh data setelah hapus
+    } catch (error) {
+      console.error("❌ Gagal menghapus pengaduan:", error);
+      alert("Pengaduan gagal dihapus.");
+    }
+  };
+
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold text-blue-700 mb-4">
@@ -40,6 +54,7 @@ export default function DataPengaduan() {
                 <th className="px-4 py-2">Subjek</th>
                 <th className="px-4 py-2">Status</th>
                 <th className="px-4 py-2">Tanggal</th>
+                <th className="px-4 py-2">Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -64,6 +79,14 @@ export default function DataPengaduan() {
                   </td>
                   <td className="px-4 py-2 text-gray-500">
                     {new Date(item.created_at).toLocaleString("id-ID")}
+                  </td>
+                  <td className="px-4 py-2">
+                    <button
+                      onClick={() => handleDelete(item.idPengaduan)}
+                      className="text-red-600 hover:text-red-800"
+                    >
+                      <MdOutlineDeleteOutline className="text-xl" />
+                    </button>
                   </td>
                 </tr>
               ))}

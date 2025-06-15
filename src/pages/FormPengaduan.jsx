@@ -1,8 +1,22 @@
 import React, { useState } from "react";
 import { pengaduanAPI } from "../services/adminApi";
 import axios from "axios";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export default function FormPengaduan() {
+  const navigate = useNavigate();
+
+  // Cek apakah user sudah login
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      alert("Silakan login terlebih dahulu untuk mengakses form pengaduan.");
+      navigate("/login");
+    }
+  }, []);
+
   const [form, setForm] = useState({ nama: "", subject: "" });
   const [isSuccess, setIsSuccess] = useState(false);
 

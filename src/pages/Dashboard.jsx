@@ -5,7 +5,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gray-100 p-6">
       <header className="mb-8">
         <h1 className="text-3xl font-semibold text-blue-600">
-          Dashboard SIPMAS
+          Dashboard Mahasiswa
         </h1>
         <p className="text-gray-600">
           Selamat datang kembali, semoga harimu menyenangkan!

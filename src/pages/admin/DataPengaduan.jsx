@@ -1,6 +1,6 @@
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import React, { useEffect, useState } from "react";
-import { pengaduanAPI } from "../services/adminApi";
+import { pengaduanAPI } from "../../services/adminApi";
 
 export default function DataPengaduan() {
   const [pengaduanList, setPengaduanList] = useState([]);

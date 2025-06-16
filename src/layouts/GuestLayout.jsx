@@ -1,5 +1,5 @@
-import FooterGuest from "../components/FooterGuest";
-import HeaderGuest from "../components/HeaderGuest";
+import FooterGuest from "../components/guest/Footer";
+import HeaderGuest from "../components/guest/Header";
 import { Outlet } from "react-router-dom";
 
 

@@ -1,45 +1,41 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../../lib/supabaseClient";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const encodedEmail = encodeURIComponent(form.email);
-      const url = `https://heafmgbqqsynbdncqsfb.supabase.co/rest/v1/user?email=eq.${encodedEmail}&select=*`;
+    // Cek ke tabel user buatan sendiri
+    const { data: users, error } = await supabase
+      .from("user")
+      .select("*")
+      .eq("email", form.email)
+      .single();
 
-      const res = await axios.get(url, {
-        headers: {
-          apikey:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhlYWZtZ2JxcXN5bmJkbmNxc2ZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk5NDQyNzEsImV4cCI6MjA2NTUyMDI3MX0.b8ALiTeEYd8qJ5eyOYk7CIfz2SKdtH6BRLrGpkBkAnM",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhlYWZtZ2JxcXN5bmJkbmNxc2ZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk5NDQyNzEsImV4cCI6MjA2NTUyMDI3MX0.b8ALiTeEYd8qJ5eyOYk7CIfz2SKdtH6BRLrGpkBkAnM",
-        },
-      });
+    if (error || !users) {
+      alert("Email tidak ditemukan.");
+      return;
+    }
 
-      const user = res.data[0];
+    if (users.password !== form.password) {
+      alert("Password salah.");
+      return;
+    }
 
-      if (!user || user.password !== form.password) {
-        alert("Email atau password salah.");
-        return;
-      }
+    alert("Login berhasil!");
+    localStorage.setItem("user", JSON.stringify(users));
 
-      localStorage.setItem("user", JSON.stringify(user));
-      alert("Login berhasil!");
-
-      // 🚀 Redirect berdasarkan role
-      if (user.role === "admin") {
-        window.location.href = "/adminDashboard";
-      } else {
-        window.location.href = "/dashboard";
-      }
-
-    } catch (error) {
-      console.error("Login error:", error);
-      alert("Terjadi kesalahan saat login.");
+    // Redirect berdasarkan role
+    if (users.role === "admin") {
+      navigate("/adminDashboard");
+    } else if (users.role === "mahasiswa") {
+      navigate("/mahasiswaDashboard");
+    } else {
+      navigate("/forbidden");
     }
   };
 

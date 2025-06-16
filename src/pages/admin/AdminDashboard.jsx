@@ -1,5 +1,4 @@
 import React from "react";
-import ComplaintTable from "../components/ComplaintTable";
 
 export default function AdminDashboard() {
   return (
@@ -12,7 +11,7 @@ export default function AdminDashboard() {
         <p className="text-gray-600">Kelola laporan mahasiswa dengan mudah.</p>
       </header>
 
-      <ComplaintTable />
+     
     </div>
   );
 }

@@ -1,7 +1,15 @@
 import React from "react";
 import SidebarMenu from "./SidebarMenu";
+import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
+
   return (
     <aside className="w-64 bg-blue-800 text-white flex flex-col justify-between min-h-screen shadow-lg">
       {/* Bagian atas */}
@@ -19,7 +27,10 @@ export default function Sidebar() {
       {/* Bagian bawah */}
       <div className="p-4 border-t border-blue-700 text-sm text-blue-200">
         <div className="mb-2">Versi 1.0.0</div>
-        <button className="w-full text-left hover:text-white transition-all">
+        <button
+          onClick={handleLogout}
+          className="w-full text-left hover:text-white transition-all"
+        >
           🔒 Keluar
         </button>
       </div>

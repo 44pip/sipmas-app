@@ -1,4 +1,5 @@
 import axios from "axios";
+import dayjs from "dayjs";
 
 const BASE_URL = "https://heafmgbqqsynbdncqsfb.supabase.co/rest/v1";
 const API_KEY =
@@ -43,5 +44,15 @@ export const pengaduanAPI = {
       console.error("❌ DELETE ERROR:", error.response?.data || error.message);
       throw error;
     }
+  },
+  async fetchLatest7Hari() {
+    const sevenDaysAgo = dayjs().subtract(7, "day").format("YYYY-MM-DD");
+
+    const res = await axios.get(
+      `${BASE_URL}/pengaduan?select=*&created_at=gte.${sevenDaysAgo}&order=created_at.desc`,
+      { headers }
+    );
+
+    return res.data;
   },
 };

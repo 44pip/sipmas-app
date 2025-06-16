@@ -10,8 +10,8 @@ const AdminDashboard = React.lazy(() => import("./pages/AdminDashboard"));
 const FormPengaduan = React.lazy(() => import("./pages/FormPengaduan"));
 const DataPengaduan = React.lazy(() => import("./pages/DataPengaduan"));
 const Login = React.lazy(() => import("./pages/auth/Login"));
+const Forgot = React.lazy(() => import("./pages/auth/Forgot"));
 const Register = React.lazy(() => import("./pages/auth/Register"));
-const Forgot = React.lazy(() => import("./pages/auth/forgot"));
 const GuestLayout = React.lazy(() => import("./layouts/GuestLayout"));
 const Guest = React.lazy(() => import("./pages/Guest"));
 

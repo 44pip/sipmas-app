@@ -5,7 +5,7 @@ import { FiHome, FiFileText, FiUsers } from "react-icons/fi";
 const menus = [
   { name: "Dashboard", path: "/adminDashboard", icon: <FiHome size={18} /> },
   { name: "Pengaduan", path: "/pengaduan", icon: <FiFileText size={18} /> },
-  { name: "User", path: "/admin/users", icon: <FiUsers size={18} /> },
+  { name: "User", path: "/users", icon: <FiUsers size={18} /> },
 ];
 
 export default function SidebarMenu() {

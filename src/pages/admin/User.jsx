@@ -1,3 +1,4 @@
+import { AiOutlineUserDelete } from "react-icons/ai";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -8,6 +9,7 @@ const API_KEY =
 const headers = {
   apikey: API_KEY,
   Authorization: `Bearer ${API_KEY}`,
+  Prefer: "return=representation",
 };
 
 export default function UserPage() {
@@ -17,19 +19,89 @@ export default function UserPage() {
 
   const fetchUsers = async () => {
     setLoading(true);
-
     try {
-      const resAdmin = await axios.get(`${BASE_URL}/user?role=eq.admin&select=*`, { headers });
-      const resMahasiswa = await axios.get(`${BASE_URL}/user?role=eq.mahasiswa&select=*`, { headers });
-
+      const resAdmin = await axios.get(
+        `${BASE_URL}/user?role=eq.admin&select=*`,
+        { headers }
+      );
+      const resMahasiswa = await axios.get(
+        `${BASE_URL}/user?role=eq.mahasiswa&select=*`,
+        { headers }
+      );
       setAdminList(resAdmin.data);
       setMahasiswaList(resMahasiswa.data);
-    } catch (error) {
-      console.error("❌ Gagal ambil data:", error);
+    } catch (err) {
+      console.error("❌ Gagal mengambil data user:", err);
     }
-
     setLoading(false);
   };
+
+  const deleteUser = async (idUser) => {
+    const konfirmasi = confirm("Yakin ingin menghapus pengguna ini?");
+    if (!konfirmasi) return;
+
+    try {
+      await axios.delete(`${BASE_URL}/user?idUser=eq.${idUser}`, { headers });
+      alert("Pengguna berhasil dihapus");
+      fetchUsers(); // refresh data
+    } catch (err) {
+      console.error("❌ Gagal menghapus:", err);
+      alert("Gagal menghapus pengguna");
+    }
+  };
+
+  const renderTable = (data, color) => (
+    <div className="space-y-3">
+      <h2 className="text-xl font-semibold flex items-center gap-2">
+        <span
+          className={`${
+            color === "blue" ? "text-blue-500" : "text-green-500"
+          } text-lg`}
+        >
+          {color === "blue" ? "🔷" : "🎓"}
+        </span>
+        {color === "blue" ? "Daftar Admin" : "Daftar Mahasiswa"}
+      </h2>
+
+      <div className="overflow-x-auto bg-white rounded-xl shadow-lg">
+        <table className="w-full text-sm">
+          <thead
+            className={`${
+              color === "blue" ? "bg-blue-50" : "bg-green-50"
+            } text-gray-700`}
+          >
+            <tr className="text-left">
+              <th className="px-6 py-3 border-b">No</th>
+              <th className="px-6 py-3 border-b">Nama</th>
+              <th className="px-6 py-3 border-b">Email</th>
+              <th className="px-6 py-3 border-b text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((user, index) => (
+              <tr
+                key={user.idUser}
+                className="hover:bg-gray-50 transition-all duration-150"
+              >
+                <td className="px-6 py-3 border-b text-center">{index + 1}</td>
+                <td className="px-6 py-3 border-b">{user.nama}</td>
+                <td className="px-6 py-3 border-b">{user.email}</td>
+                <td className="px-6 py-3 border-b text-center">
+                  <button
+                    onClick={() => deleteUser(user.idUser)}
+                    className="text-red-500 hover:text-red-700 text-xl"
+                    title="Hapus pengguna"
+                  >
+                    <AiOutlineUserDelete />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 
   useEffect(() => {
     fetchUsers();
@@ -37,57 +109,8 @@ export default function UserPage() {
 
   return (
     <div className="space-y-10">
-      <div>
-        <h2 className="text-xl font-semibold mb-4">🔷 Daftar Admin</h2>
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          <table className="w-full table-auto border border-gray-300">
-            <thead className="bg-blue-200">
-              <tr>
-                <th className="px-4 py-2 border">No</th>
-                <th className="px-4 py-2 border">Nama</th>
-                <th className="px-4 py-2 border">Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              {adminList.map((user, index) => (
-                <tr key={user.id} className="text-center">
-                  <td className="px-4 py-2 border">{index + 1}</td>
-                  <td className="px-4 py-2 border">{user.nama}</td>
-                  <td className="px-4 py-2 border">{user.email}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
-
-      <div>
-        <h2 className="text-xl font-semibold mb-4">🎓 Daftar Mahasiswa</h2>
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          <table className="w-full table-auto border border-gray-300">
-            <thead className="bg-green-200">
-              <tr>
-                <th className="px-4 py-2 border">No</th>
-                <th className="px-4 py-2 border">Nama</th>
-                <th className="px-4 py-2 border">Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              {mahasiswaList.map((user, index) => (
-                <tr key={user.id} className="text-center">
-                  <td className="px-4 py-2 border">{index + 1}</td>
-                  <td className="px-4 py-2 border">{user.nama}</td>
-                  <td className="px-4 py-2 border">{user.email}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+      {loading ? <p>Loading...</p> : renderTable(adminList, "blue")}
+      {loading ? <p>Loading...</p> : renderTable(mahasiswaList, "green")}
     </div>
   );
 }

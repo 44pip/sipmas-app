@@ -18,6 +18,7 @@ const FormPengaduan = React.lazy(() => import("./pages/mahasiswa/FormPengaduan")
 const AdminLayout = React.lazy(() => import("./layouts/AdminLayout"));
 const AdminDashboard = React.lazy(() => import("./pages/admin/AdminDashboard"));
 const DataPengaduan = React.lazy(() => import("./pages/admin/DataPengaduan"));
+const User = React.lazy(() => import("./pages/admin/User"));
 
 //guest
 const GuestLayout = React.lazy(() => import("./layouts/GuestLayout"));
@@ -30,6 +31,7 @@ function App() {
         <Route element={<AdminLayout />}>
           <Route path="adminDashboard" element={<AdminDashboard />} />
           <Route path="pengaduan" element={<DataPengaduan />} />
+          <Route path="users" element={<User />} />
         </Route>
 
         <Route element={<AuthLayout />}>

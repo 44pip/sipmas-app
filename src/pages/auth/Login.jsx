@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../../lib/supabaseClient";
+import axios from "axios";
+
+const BASE_URL = "https://heafmgbqqsynbdncqsfb.supabase.co/rest/v1";
+const API_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhlYWZtZ2JxcXN5bmJkbmNxc2ZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk5NDQyNzEsImV4cCI6MjA2NTUyMDI3MX0.b8ALiTeEYd8qJ5eyOYk7CIfz2SKdtH6BRLrGpkBkAnM"; // sesuaikan
+
+const headers = {
+  apikey: API_KEY,
+  Authorization: `Bearer ${API_KEY}`,
+};
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -9,33 +18,32 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Cek ke tabel user buatan sendiri
-    const { data: users, error } = await supabase
-      .from("user")
-      .select("*")
-      .eq("email", form.email)
-      .single();
+    try {
+      const res = await axios.get(
+        `${BASE_URL}/user?email=eq.${encodeURIComponent(form.email)}&select=*`,
+        { headers }
+      );
 
-    if (error || !users) {
-      alert("Email tidak ditemukan.");
-      return;
-    }
+      const user = res.data[0];
 
-    if (users.password !== form.password) {
-      alert("Password salah.");
-      return;
-    }
+      if (!user || user.password !== form.password) {
+        alert("Email atau password salah.");
+        return;
+      }
 
-    alert("Login berhasil!");
-    localStorage.setItem("user", JSON.stringify(users));
+      localStorage.setItem("user", JSON.stringify(user));
+      alert("Login berhasil!");
 
-    // Redirect berdasarkan role
-    if (users.role === "admin") {
-      navigate("/adminDashboard");
-    } else if (users.role === "mahasiswa") {
-      navigate("/mahasiswaDashboard");
-    } else {
-      navigate("/forbidden");
+      if (user.role === "admin") {
+        navigate("/adminDashboard");
+      } else if (user.role === "mahasiswa") {
+        navigate("/mahasiswaDashboard");
+      } else {
+        navigate("/forbidden");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Terjadi kesalahan saat login.");
     }
   };
 

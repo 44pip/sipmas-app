@@ -137,7 +137,7 @@ export default function AdminDashboard() {
           </div>
           <img
             src="/img/aksi.png"
-            alt="Ilustrasi aksi cepat"
+            alt="Ilustrasi aksi cepat"  
             className="w-125 mt-6"
           />
         </div>

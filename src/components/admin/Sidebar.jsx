@@ -1,5 +1,5 @@
-import { IoIosLock } from "react-icons/io"; 
-import { BiLock } from "react-icons/bi"; 
+import { IoIosLock } from "react-icons/io";
+import { BiLock } from "react-icons/bi";
 import React from "react";
 import SidebarMenu from "./SidebarMenu";
 import { useNavigate } from "react-router-dom";
@@ -20,8 +20,7 @@ export default function Sidebar() {
       <div>
         <div className="p-6 text-center border-b border-blue-700">
           <div className="flex items-center justify-center gap-2 text-3xl font-poppins font-extrabold tracking-wide">
-            
-            <HiSpeakerphone className="text-yellow-400"  />
+            <HiSpeakerphone className="text-yellow-400" />
             SIPMAS
           </div>
           <div className="text-xs font-barlow text-blue-200 mt-1 italic">
@@ -39,8 +38,7 @@ export default function Sidebar() {
           onClick={handleLogout}
           className="w-full flex items-center gap-2 hover:text-white transition-all"
         >
-          <IoIosLock size={20} className="text-yellow-400"/>
-         
+          <IoIosLock size={20} className="text-yellow-400" />
           Keluar
         </button>
       </div>

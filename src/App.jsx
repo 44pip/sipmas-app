@@ -1,6 +1,8 @@
 import React, { Suspense } from "react";
 import "./assets/tailwind.css";
 import { Route, Routes } from "react-router-dom";
+import './App.css';
+
 const Loading = React.lazy(() => import("./components/Loading"));
 
 //auth

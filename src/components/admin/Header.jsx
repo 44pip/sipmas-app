@@ -20,7 +20,7 @@ export default function Header() {
     <header className="sticky top-0 z-10 bg-white border-b border-gray-200 px-6 py-4 shadow-sm">
       <div className="flex items-center justify-between">
         {/* Kiri: Judul */}
-        <h1 className="text-xl font-semibold text-blue-700 font-montserrat">
+        <h1 className="text-xl font-poppins font-extrabold text-blue-700 font-montserrat">
           Manajemen Pengaduan Mahasiswa
         </h1>
 

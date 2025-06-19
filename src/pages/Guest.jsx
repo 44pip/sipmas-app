@@ -12,16 +12,12 @@ export default function Guest() {
           Sistem Informasi Pengaduan Mahasiswa untuk menyampaikan aspirasi, keluhan, dan masukan demi perbaikan kampus tercinta.
         </p>
         <div className="space-x-4">
-          <Link to="/login">
+          <Link to="/formPengaduan">
             <button className="bg-white text-blue-700 font-semibold py-2 px-6 rounded-full hover:bg-gray-100 transition">
-              Login
+              ingin melakukan pengaduan?
             </button>
           </Link>
-          <Link to="/register">
-            <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-full transition">
-              Register
-            </button>
-          </Link>
+          
         </div>
       </section>
 

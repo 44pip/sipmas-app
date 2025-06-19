@@ -11,7 +11,6 @@ const Register = React.lazy(() => import("./pages/auth/Register"));
 
 //mahasiswa
 const MahasiswaLayout = React.lazy(() => import("./layouts/MahasiswaLayout"));
-const MahasiswaDashboard = React.lazy(() => import("./pages/mahasiswa/Dashboard"));
 const FormPengaduan = React.lazy(() => import("./pages/mahasiswa/FormPengaduan"));
 
 //admin
@@ -41,7 +40,6 @@ function App() {
         </Route>
 
         <Route element={<MahasiswaLayout />}>
-          <Route path="mahasiswaDashboard" element={<MahasiswaDashboard />} />
           <Route path="formPengaduan" element={<FormPengaduan />} />
         </Route>
         <Route element={<GuestLayout />}>

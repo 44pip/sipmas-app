@@ -98,6 +98,12 @@ export default function Login() {
             {showPassword ? <AiFillEyeInvisible size={20} /> : <AiFillEye size={20} />}
           </span>
         </div>
+        {/* Link tambahan */}
+        <div className="flex flex-col sm:flex-row sm:justify-between items-center mt-4 text-sm text-gray-600 gap-2">
+          <a href="/forgot" className="text-blue-500 hover:underline font-medium">
+            Lupa Password?
+          </a>
+        </div>
 
         <button
           type="submit"
@@ -110,6 +116,15 @@ export default function Login() {
             "Login"
           )}
         </button>
+        {/* Link tambahan */}
+        <div className="flex flex-col sm:flex-row sm:justify-between items-center mt-4 text-sm text-gray-600 gap-2">
+          <span>
+            Belum punya akun?{" "}
+            <a href="/register" className="text-blue-600 hover:underline font-medium">
+              Daftar di sini
+            </a>
+          </span>
+        </div>
       </form>
     </div>
   );

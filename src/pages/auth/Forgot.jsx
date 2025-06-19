@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 
 export default function Forgot() {
   const [email, setEmail] = useState("");
@@ -11,21 +10,34 @@ export default function Forgot() {
   };
 
   return (
-    <div className="p-6 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Lupa Password</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Input Email */}
+      <div className="relative">
         <input
           type="email"
           placeholder="Masukkan email"
-          className="w-full p-2 border rounded"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <button className="w-full bg-yellow-500 text-white py-2 rounded">
-          Kirim Link Reset
-        </button>
-      </form>
-    </div>
+      </div>
+
+      {/* Tombol Reset */}
+      <button
+        type="submit"
+        className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2.5 rounded-lg transition duration-300"
+      >
+        Kirim Link Reset
+      </button>
+
+      {/* Kembali ke Login */}
+      <p className="text-center text-sm text-gray-600 mt-4">
+        Sudah ingat password?{" "}
+        <a href="/login" className="text-blue-600 hover:underline font-medium">
+          Kembali ke Login
+        </a>
+      </p>
+    </form>
   );
 }

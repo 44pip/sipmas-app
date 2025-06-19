@@ -1,4 +1,5 @@
 import { AiOutlineUserDelete } from "react-icons/ai";
+import { FaUserShield, FaUserGraduate } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -51,20 +52,24 @@ export default function UserPage() {
   };
 
   const renderTable = (data, color) => (
-    <div className="space-y-3">
-      <h2 className="text-xl font-semibold flex items-center gap-2">
+    <div className="space-y-3 font-poppins">
+      <h2 className="text-xl font-bold flex items-center gap-2 font-lato">
         <span
           className={`${
             color === "blue" ? "text-blue-500" : "text-green-500"
-          } text-lg`}
+          }`}
         >
-          {color === "blue" ? "🔷" : "🎓"}
+          {color === "blue" ? (
+            <FaUserShield size={20} />
+          ) : (
+            <FaUserGraduate size={20} />
+          )}
         </span>
         {color === "blue" ? "Daftar Admin" : "Daftar Mahasiswa"}
       </h2>
 
       <div className="overflow-x-auto bg-white rounded-xl shadow-lg">
-        <table className="w-full text-sm">
+        <table className="w-full text-sm font-montserrat">
           <thead
             className={`${
               color === "blue" ? "bg-blue-50" : "bg-green-50"
@@ -92,7 +97,7 @@ export default function UserPage() {
                     className="text-red-500 hover:text-red-700 text-xl"
                     title="Hapus pengguna"
                   >
-                    <AiOutlineUserDelete />
+                    <AiOutlineUserDelete size={20} />
                   </button>
                 </td>
               </tr>
@@ -109,8 +114,14 @@ export default function UserPage() {
 
   return (
     <div className="space-y-10">
-      {loading ? <p>Loading...</p> : renderTable(adminList, "blue")}
-      {loading ? <p>Loading...</p> : renderTable(mahasiswaList, "green")}
+      {loading ? (
+        <p className="italic text-gray-500 font-montserrat">Loading...</p>
+      ) : (
+        <>
+          {renderTable(adminList, "blue")}
+          {renderTable(mahasiswaList, "green")}
+        </>
+      )}
     </div>
   );
 }

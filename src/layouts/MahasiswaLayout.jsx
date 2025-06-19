@@ -3,16 +3,16 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 
 export default function MahasiswaLayout() {
   const location = useLocation();
-  const activeClass = "text-blue-600 font-semibold underline underline-offset-8";
-  const inactiveClass = "text-gray-600 hover:text-blue-600";
+  const activeClass = "text-blue-600 font-semibold underline underline-offset-8 font-lato";
+  const inactiveClass = "text-gray-600 hover:text-blue-600 font-poppins";
 
   return (
-    <div className="min-h-screen bg-blue-50 p-6 ">
+    <div className="min-h-screen bg-blue-50 p-6 font-poppins">
       <div className="max-w-4xl mx-auto">
         <div className="flex space-x-8 px-6 mb-0">
           <Link
             to="/formPengaduan"
-            className= {location.pathname.includes("formPengaduan") ? activeClass : inactiveClass}
+            className={location.pathname.includes("formPengaduan") ? activeClass : inactiveClass}
           >
             Tambah Pengaduan
           </Link>

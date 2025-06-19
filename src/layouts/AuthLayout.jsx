@@ -5,7 +5,7 @@ export default function AuthLayout() {
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 overflow-x-hidden px-4 font-poppins">
       <div className="bg-white/90 backdrop-blur-md p-6 sm:p-10 rounded-3xl shadow-xl max-w-md w-full transition-all duration-300 ease-in-out">
         <div className="flex flex-col items-center mb-6 text-center">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-blue-700 leading-snug font-lato bold">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-blue-700 leading-snug font-lato">
             Sistem Pengaduan Mahasiswa
           </h1>
         </div>
@@ -20,4 +20,3 @@ export default function AuthLayout() {
     </div>
   );
 }
-

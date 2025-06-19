@@ -16,7 +16,7 @@ export default function SidebarMenu() {
           key={index}
           to={menu.path}
           className={({ isActive }) =>
-            `flex items-center gap-3 px-4 py-2 text-sm font-medium rounded-lg transition-all ${
+            `flex items-center gap-3 px-4 py-2 text-sm font-poppins font-medium rounded-lg transition-all ${
               isActive
                 ? "bg-blue-600 text-white shadow"
                 : "text-gray-300 hover:bg-blue-700 hover:text-white"

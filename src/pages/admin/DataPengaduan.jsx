@@ -35,18 +35,18 @@ export default function DataPengaduan() {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold text-blue-700 mb-4">
+    <div className="p-6 font-poppins">
+      <h1 className="text-2xl font-extrabold text-blue-700 mb-4 font-lato">
         Daftar Pengaduan Mahasiswa
       </h1>
 
       {loading ? (
-        <p className="text-gray-600">Sedang memuat data...</p>
+        <p className="text-gray-600 font-montserrat italic">Sedang memuat data...</p>
       ) : pengaduanList.length === 0 ? (
-        <p className="text-gray-600">Belum ada pengaduan.</p>
+        <p className="text-gray-600 font-montserrat italic">Belum ada pengaduan.</p>
       ) : (
         <div className="overflow-x-auto bg-white shadow rounded-xl">
-          <table className="min-w-full text-sm text-left border border-gray-200">
+          <table className="min-w-full text-sm text-left border border-gray-200 font-montserrat">
             <thead className="bg-blue-600 text-white">
               <tr>
                 <th className="px-4 py-2">#</th>
@@ -68,7 +68,7 @@ export default function DataPengaduan() {
                   <td className="px-4 py-2">{item.subject}</td>
                   <td className="px-4 py-2">
                     <span
-                      className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      className={`px-3 py-1 rounded-full text-xs font-medium font-poppins ${
                         item.status === "Selesai"
                           ? "bg-green-100 text-green-600"
                           : "bg-yellow-100 text-yellow-600"
@@ -77,7 +77,7 @@ export default function DataPengaduan() {
                       {item.status}
                     </span>
                   </td>
-                  <td className="px-4 py-2 text-gray-500">
+                  <td className="px-4 py-2 text-gray-500 text-xs font-montserrat italic">
                     {new Date(item.created_at).toLocaleString("id-ID")}
                   </td>
                   <td className="px-4 py-2">

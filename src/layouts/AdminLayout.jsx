@@ -31,7 +31,7 @@ export default function AdminLayout() {
   }, [navigate]);
 
   if (isLoading) {
-    return <div className="p-6">Memuat halaman...</div>;
+    return <div className="p-6 font-poppins">Memuat halaman...</div>;
   }
 
   if (!isAuthorized) {

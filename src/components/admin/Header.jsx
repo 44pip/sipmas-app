@@ -20,16 +20,18 @@ export default function Header() {
     <header className="sticky top-0 z-10 bg-white border-b border-gray-200 px-6 py-4 shadow-sm">
       <div className="flex items-center justify-between">
         {/* Kiri: Judul */}
-        <h1 className="text-xl font-poppins font-extrabold text-blue-700 font-montserrat">
+        <h1 className="text-xl font-poppins font-extrabold text-blue-700">
           Manajemen Pengaduan Mahasiswa
         </h1>
 
         {/* Tengah: Tanggal */}
-        <div className="text-sm text-gray-500 italic">{tanggal}</div>
+        <div className="text-sm font-barlow text-teks italic">{tanggal}</div>
 
         {/* Kanan: Profil */}
         <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-600 italic">Selamat datang, Admin</span>
+          <span className="text-sm font-barlow text-teksSamping italic">
+            Selamat datang, Admin
+          </span>
           <img
             src="https://avatar.iran.liara.run/public/24"
             alt="Admin Avatar"

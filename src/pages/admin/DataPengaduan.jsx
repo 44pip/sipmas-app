@@ -1,10 +1,14 @@
+import { BsInfoCircle } from "react-icons/bs";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import { pengaduanAPI } from "../../services/pengaduanApi";
 
 export default function DataPengaduan() {
   const [pengaduanList, setPengaduanList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedDetail, setSelectedDetail] = useState(null); // state untuk modal
 
   const fetchData = async () => {
     try {
@@ -27,7 +31,7 @@ export default function DataPengaduan() {
 
     try {
       await pengaduanAPI.deletePengaduan(id);
-      fetchData(); // refresh data setelah hapus
+      fetchData();
     } catch (error) {
       console.error("❌ Gagal menghapus pengaduan:", error);
       alert("Pengaduan gagal dihapus.");
@@ -41,9 +45,13 @@ export default function DataPengaduan() {
       </h1>
 
       {loading ? (
-        <p className="text-gray-600 font-montserrat italic">Sedang memuat data...</p>
+        <p className="text-gray-600 font-montserrat italic">
+          Sedang memuat data...
+        </p>
       ) : pengaduanList.length === 0 ? (
-        <p className="text-gray-600 font-montserrat italic">Belum ada pengaduan.</p>
+        <p className="text-gray-600 font-montserrat italic">
+          Belum ada pengaduan.
+        </p>
       ) : (
         <div className="overflow-x-auto bg-white shadow rounded-xl">
           <table className="min-w-full text-sm text-left border border-gray-200 font-montserrat">
@@ -51,7 +59,9 @@ export default function DataPengaduan() {
               <tr>
                 <th className="px-4 py-2">#</th>
                 <th className="px-4 py-2">Nama</th>
-                <th className="px-4 py-2">Subjek</th>
+                <th className="px-4 py-2">Kelas</th>
+                <th className="px-4 py-2">Kategori</th>
+                <th className="px-4 py-2">Jenis</th>
                 <th className="px-4 py-2">Status</th>
                 <th className="px-4 py-2">Tanggal</th>
                 <th className="px-4 py-2">Aksi</th>
@@ -65,7 +75,9 @@ export default function DataPengaduan() {
                 >
                   <td className="px-4 py-2 font-semibold">{index + 1}</td>
                   <td className="px-4 py-2">{item.nama}</td>
-                  <td className="px-4 py-2">{item.subject}</td>
+                  <td className="px-4 py-2">{item.kelas}</td>
+                  <td className="px-4 py-2">{item.kategori}</td>
+                  <td className="px-4 py-2">{item.jenis}</td>
                   <td className="px-4 py-2">
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-medium font-poppins ${
@@ -77,16 +89,19 @@ export default function DataPengaduan() {
                       {item.status}
                     </span>
                   </td>
-                  <td className="px-4 py-2 text-gray-500 text-xs font-montserrat italic">
+                  <td className="px-4 py-2 text-gray-500 text-xs italic">
                     {new Date(item.created_at).toLocaleString("id-ID")}
                   </td>
-                  <td className="px-4 py-2">
+                  <td className="px-4 py-2 flex items-center gap-2">
                     <button
                       onClick={() => handleDelete(item.idPengaduan)}
                       className="text-red-600 hover:text-red-800"
                     >
                       <MdOutlineDeleteOutline className="text-xl" />
                     </button>
+                    <Link to={`/detailPengaduan/${item.idPengaduan}`}>
+                      <BsInfoCircle className="text-blue-600 hover:text-blue-800 text-xl" />
+                    </Link>
                   </td>
                 </tr>
               ))}

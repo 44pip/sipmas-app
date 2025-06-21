@@ -48,7 +48,7 @@ export default function AdminDashboard() {
       const allPengaduan = await pengaduanAPI.fetchAll();
       const sorted = allPengaduan
         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-        .slice(0, 6);
+        .slice(0, 5);
 
       setPengaduanTerbaru(sorted);
     } catch (err) {
@@ -141,18 +141,11 @@ export default function AdminDashboard() {
             <span className="text-orange-500">
               <BsLightning className="text-orange-500" size={20} />
             </span>
-            Aksi Cepat
+            Statistik
           </h3>
-          {/* <div className="flex flex-wrap justify-center gap-3 mb-6">
-            <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-all font-semibold">
-              + Tambah Mahasiswa
-            </button>
-            <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-all font-semibold">
-              + Tambah Pengaduan
-            </button>
-          </div> */}
+          
           <img
-            src="/img/aksi.png"
+            src="/img/statistik.png"
             alt="Ilustrasi aksi cepat"
             className="w-125 mt-6"
           />

@@ -46,8 +46,12 @@ export default function AdminDashboard() {
 
   const fetchPengaduan = async () => {
     try {
-      const data = await pengaduanAPI.fetchLatest7Hari();
-      setPengaduanTerbaru(data);
+      const allPengaduan = await pengaduanAPI.fetchAll(); // ambil semua
+      const sorted = allPengaduan
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) // urutkan terbaru
+        .slice(0, 7); // ambil 7 teratas
+
+      setPengaduanTerbaru(sorted);
     } catch (err) {
       console.error("❌ Gagal ambil pengaduan terbaru:", err);
     }

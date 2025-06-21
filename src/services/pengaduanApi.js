@@ -55,4 +55,11 @@ export const pengaduanAPI = {
 
     return res.data;
   },
+  async fetchByUserId(idUser) {
+    const res = await axios.get(
+      `${BASE_URL}/pengaduan?idUser=eq.${idUser}&order=created_at.desc`,
+      { headers }
+    );
+    return res.data;
+  },
 };

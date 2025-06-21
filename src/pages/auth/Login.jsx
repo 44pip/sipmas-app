@@ -44,7 +44,7 @@ export default function Login() {
       if (user.role === "admin") {
         navigate("/adminDashboard");
       } else if (user.role === "mahasiswa") {
-        navigate("/mahasiswaDashboard");
+        navigate("/formPengaduan");
       } else {
         navigate("/forbidden");
       }

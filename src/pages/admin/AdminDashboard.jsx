@@ -158,15 +158,38 @@ export default function AdminDashboard() {
 }
 
 function Card({ title, value, color, icon }) {
+  const colorMap = {
+    indigo: {
+      bg: "bg-white",
+      icon: "text-black",
+    },
+    blue: {
+      bg: "bg-blue-50",
+      icon: "text-blue-600",
+    },
+    green: {
+      bg: "bg-green-50",
+      icon: "text-green-600",
+    },
+    red: {
+      bg: "bg-red-50",
+      icon: "text-red-600",
+    },
+  };
+
+  const style = colorMap[color] || colorMap.indigo;
+
   return (
     <div
-      className={`bg-${color}-50 border border-${color}-200 text-${color}-800 px-5 py-4 rounded-xl shadow hover:shadow-md transition-all font-poppins`}
+      className={`px-5 py-4 rounded-xl shadow font-poppins border border-black ${style.bg}`}
     >
       <div className="flex items-center justify-between mb-2">
-        <h3 className="text-sm font-medium font-montserrat">{title}</h3>
-        <div className={`text-${color}-600`}>{icon}</div>
+        <h3 className="text-sm font-medium font-montserrat text-black">
+          {title}
+        </h3>
+        <div className={style.icon}>{icon}</div>
       </div>
-      <div className="text-3xl font-extrabold font-lato">{value}</div>
+      <div className="text-3xl font-extrabold font-lato text-black">{value}</div>
     </div>
   );
 }

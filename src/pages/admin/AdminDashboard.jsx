@@ -6,34 +6,53 @@ import { pengaduanAPI } from "../../services/pengaduanApi";
 import dayjs from "dayjs";
 
 // Import icons
-import { FaUsers, FaUserShield, FaUserGraduate } from "react-icons/fa";
-import { MdReport } from "react-icons/md";
+import { FaUsers, FaUserGraduate } from "react-icons/fa";
+import { MdReport, MdOutlineReportProblem } from "react-icons/md";
 
 export default function AdminDashboard() {
   const [counts, setCounts] = useState({
     totalUser: 0,
-    totalAdmin: 0,
     totalMahasiswa: 0,
     totalPengaduan: 0,
+    belumDitangani: 0,
   });
+
+  const [pengaduanTerbaru, setPengaduanTerbaru] = useState([]);
 
   const fetchCounts = async () => {
     try {
-      const [all, admin, mahasiswa, pengaduan] = await Promise.all([
+      const [all, mahasiswa, pengaduan] = await Promise.all([
         userAPI.countAll(),
-        userAPI.countByRole("admin"),
         userAPI.countByRole("mahasiswa"),
         statistikAPI.countPengaduan(),
       ]);
 
+      const allPengaduan = await pengaduanAPI.fetchAll();
+      const belumDitangani = allPengaduan.filter(
+        (p) => p.status === "Belum Ditangani"
+      ).length;
+
       setCounts({
         totalUser: all,
-        totalAdmin: admin,
         totalMahasiswa: mahasiswa,
         totalPengaduan: pengaduan,
+        belumDitangani,
       });
     } catch (err) {
       console.error("❌ Gagal ambil data dashboard:", err);
+    }
+  };
+
+  const fetchPengaduan = async () => {
+    try {
+      const allPengaduan = await pengaduanAPI.fetchAll();
+      const sorted = allPengaduan
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        .slice(0, 6);
+
+      setPengaduanTerbaru(sorted);
+    } catch (err) {
+      console.error("❌ Gagal ambil pengaduan terbaru:", err);
     }
   };
 
@@ -42,25 +61,8 @@ export default function AdminDashboard() {
     fetchPengaduan();
   }, []);
 
-  const [pengaduanTerbaru, setPengaduanTerbaru] = useState([]);
-
-  const fetchPengaduan = async () => {
-    try {
-      const allPengaduan = await pengaduanAPI.fetchAll(); // ambil semua
-      const sorted = allPengaduan
-        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) // urutkan terbaru
-        .slice(0, 7); // ambil 7 teratas
-
-      setPengaduanTerbaru(sorted);
-    } catch (err) {
-      console.error("❌ Gagal ambil pengaduan terbaru:", err);
-    }
-  };
-
   return (
     <div className="space-y-8 font-poppins">
-      {" "}
-      {/* ← font dasar */}
       <div>
         <h1 className="text-2xl font-extrabold text-blue-600 font-lato">
           Dashboard Admin
@@ -69,6 +71,8 @@ export default function AdminDashboard() {
           Kelola laporan mahasiswa dengan mudah.
         </p>
       </div>
+
+      {/* Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         <Card
           title="Total Pengguna"
@@ -77,10 +81,10 @@ export default function AdminDashboard() {
           icon={<FaUsers size={28} />}
         />
         <Card
-          title="Admin"
-          value={counts.totalAdmin}
+          title="Belum Ditangani"
+          value={counts.belumDitangani}
           color="blue"
-          icon={<FaUserShield size={28} />}
+          icon={<MdOutlineReportProblem size={28} />}
         />
         <Card
           title="Mahasiswa"
@@ -95,6 +99,7 @@ export default function AdminDashboard() {
           icon={<MdReport size={28} />}
         />
       </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Pengaduan Terbaru */}
         <div className="bg-white p-5 rounded-xl shadow">
@@ -111,14 +116,14 @@ export default function AdminDashboard() {
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
                       <h4 className="text-blue-600 font-semibold font-poppins">
-                        {item.keterangan || "Tanpa deskripsi"}
+                        {item.kategori || "Tanpa kategori"}
                       </h4>
                       <p className="text-xs text-gray-500 italic mt-1">
-                        {item.email || "email tidak tersedia"}
+                        {item.jenis || "Jenis tidak tersedia"}
                       </p>
                     </div>
                     <span className="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full font-poppins">
-                      Fasilitas
+                      {item.tag || "Sub-kategori"}
                     </span>
                   </div>
                   <div className="text-xs text-gray-400 mt-2 font-montserrat">
@@ -135,17 +140,17 @@ export default function AdminDashboard() {
           <h3 className="text-lg font-semibold text-gray-700 mb-3 flex items-center gap-2 font-lato">
             <span className="text-orange-500">
               <BsLightning className="text-orange-500" size={20} />
-            </span>{" "}
+            </span>
             Aksi Cepat
           </h3>
-          <div className="flex flex-wrap justify-center gap-3 mb-6">
+          {/* <div className="flex flex-wrap justify-center gap-3 mb-6">
             <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-all font-semibold">
               + Tambah Mahasiswa
             </button>
             <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-all font-semibold">
               + Tambah Pengaduan
             </button>
-          </div>
+          </div> */}
           <img
             src="/img/aksi.png"
             alt="Ilustrasi aksi cepat"
@@ -189,7 +194,9 @@ function Card({ title, value, color, icon }) {
         </h3>
         <div className={style.icon}>{icon}</div>
       </div>
-      <div className="text-3xl font-extrabold font-lato text-black">{value}</div>
+      <div className="text-3xl font-extrabold font-lato text-black">
+        {value}
+      </div>
     </div>
   );
 }

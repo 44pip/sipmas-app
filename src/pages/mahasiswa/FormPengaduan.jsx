@@ -96,76 +96,64 @@ export default function FormPengaduan() {
   };
 
   return (
-    <div className="min-h-screen bg-blue-50 p-6 flex justify-center">
-      <div className="bg-white rounded-2xl shadow-md w-full max-w-4xl p-8 pt-6">
-        <h2 className="text-2xl font-semibold mb-6 text-gray-800">Tambah Pengaduan</h2>
+    <div className="min-h-screen bg-blue-50 p-6 flex justify-center items-center">
+      <div className="bg-white rounded-xl shadow-lg w-full max-w-4xl p-8 space-y-6">
+        <h2 className="text-3xl font-bold text-center text-blue-700">Form Pengaduan Mahasiswa</h2>
         {isSuccess && (
-          <div className="text-green-600 text-sm mb-3 text-center">
+          <div className="text-green-600 text-sm text-center">
             Pengaduan berhasil dikirim!
           </div>
         )}
-        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block mb-1">Nama:</label>
-            <input name="nama" onChange={handleChange} value={form.nama} className="w-full px-4 py-2 border rounded-lg" />
+            <label className="block text-sm font-medium mb-1">Nama</label>
+            <input name="nama" onChange={handleChange} value={form.nama} className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
           </div>
           <div>
-            <label className="block mb-1">NIM:</label>
-            <input name="nim" onChange={handleChange} value={form.nim} className="w-full px-4 py-2 border rounded-lg" />
+            <label className="block text-sm font-medium mb-1">NIM</label>
+            <input name="nim" onChange={handleChange} value={form.nim} className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
           </div>
           <div>
-            <label className="block mb-1">Kelas:</label>
-            <input name="kelas" onChange={handleChange} value={form.kelas} className="w-full px-4 py-2 border rounded-lg" />
+            <label className="block text-sm font-medium mb-1">Kelas</label>
+            <input name="kelas" onChange={handleChange} value={form.kelas} className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
           </div>
           <div>
-            <label className="block mb-1">Tanggal:</label>
-            <input type="date" name="tanggal" onChange={handleChange} value={form.tanggal} className="w-full px-4 py-2 border rounded-lg" />
+            <label className="block text-sm font-medium mb-1">Tanggal</label>
+            <input type="date" name="tanggal" onChange={handleChange} value={form.tanggal} className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
           </div>
           <div>
-            <label className="block mb-1">Kategori:</label>
-            <select name="kategori" onChange={handleChange} value={form.kategori} className="w-full px-4 py-2 border rounded-lg">
+            <label className="block text-sm font-medium mb-1">Kategori</label>
+            <select name="kategori" onChange={handleChange} value={form.kategori} className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
               <option value="">-- Pilih Kategori --</option>
               <option value="Akademik">Akademik</option>
               <option value="Non Akademik">Non Akademik</option>
             </select>
           </div>
           <div>
-            <label className="block mb-1">Sub-Kategori:</label>
-            <select
-              name="subKategori"
-              onChange={handleChange}
-              value={form.subKategori}
-              className="w-full px-4 py-2 border rounded-lg"
-              disabled={!form.kategori}
-            >
+            <label className="block text-sm font-medium mb-1">Sub-Kategori</label>
+            <select name="subKategori" onChange={handleChange} value={form.subKategori} className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" disabled={!form.kategori}>
               <option value="">-- Pilih Sub-Kategori --</option>
-              {form.kategori &&
-                subKategoriOptions[form.kategori].map((sub) => (
-                  <option key={sub} value={sub}>{sub}</option>
-                ))}
+              {form.kategori && subKategoriOptions[form.kategori].map((sub) => (
+                <option key={sub} value={sub}>{sub}</option>
+              ))}
             </select>
           </div>
-          <div className="col-span-2">
-            <label className="block mb-1">Jenis:</label>
-            <select
-              name="jenis"
-              onChange={handleChange}
-              value={form.jenis}
-              className="w-full px-4 py-2 border rounded-lg"
-            >
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium mb-1">Jenis</label>
+            <select name="jenis" onChange={handleChange} value={form.jenis} className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
               <option value="">-- Pilih Jenis --</option>
               {jenisOptions.map((j) => (
                 <option key={j} value={j}>{j}</option>
               ))}
             </select>
           </div>
-          <div className="col-span-2">
-            <label className="block mb-1">Keterangan:</label>
-            <textarea name="keterangan" onChange={handleChange} value={form.keterangan} className="w-full px-4 py-2 border rounded-lg" rows={4} />
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium mb-1">Keterangan</label>
+            <textarea name="keterangan" onChange={handleChange} value={form.keterangan} rows="4" className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
           </div>
-          <div className="col-span-2 text-right mt-4">
-            <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg">
-              Submit
+          <div className="md:col-span-2 text-right">
+            <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium shadow">
+              Kirim Pengaduan
             </button>
           </div>
         </form>

@@ -4,7 +4,7 @@ export default function HeaderGuest() {
       <div className="w-full px-0 py-4 flex justify-between items-center">
         {/* Logo */}
         <img
-          src="/img/logo.png" // Hapus '/public' karena public folder otomatis jadi root
+          src="/img/logo.png" 
           alt="Logo SIPMAS"
           className="w-24 ml-15"
         />

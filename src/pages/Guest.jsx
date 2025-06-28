@@ -45,7 +45,7 @@ export default function Guest() {
       {/* Tentang Kami */}
       <section className="py-16 px-6 text-center bg-white">
         <img
-          src="/public/img/logo.png"
+          src="/img/logo.png"
           alt="Logo SIPMAS"
           className="w-40 mx-auto mb-6"
         />

@@ -44,6 +44,11 @@ export default function Guest() {
 
       {/* Tentang Kami */}
       <section className="py-16 px-6 text-center bg-white">
+        <img
+          src="/img/logo.png"
+          alt="Logo SIPMAS"
+          className="w-40 mx-auto mb-6"
+        />
         <h2 className="text-3xl font-bold text-blue-700 mb-4">Tentang SIPMAS</h2>
         <p className="text-gray-700 max-w-2xl mx-auto leading-relaxed">
           SIPMAS adalah sistem pengaduan mahasiswa berbasis digital yang

@@ -32,6 +32,20 @@ export const pengaduanAPI = {
   },
 
   // tambahkan di dalam export const pengaduanAPI
+async updatePengaduan(id, data) {
+  try {
+    const res = await axios.patch(
+      `${BASE_URL}/pengaduan?idPengaduan=eq.${id}`,
+      data,
+      { headers }
+    );
+    return res.data;
+  } catch (error) {
+    console.error("❌ UPDATE ERROR:", error.response?.data || error.message);
+    throw error;
+  }
+},
+  
   async deletePengaduan(id) {
     try {
       const res = await axios.delete(

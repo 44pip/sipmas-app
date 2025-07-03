@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { pengaduanAPI } from "../../services/pengaduanApi";
 import { useNavigate } from "react-router-dom";
+import { FaPaperPlane } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 export default function FormPengaduan() {
   const navigate = useNavigate();
@@ -29,16 +31,35 @@ export default function FormPengaduan() {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const subKategoriOptions = {
-    "Akademik": [
-      "Dosen", "KRS", "Jadwal", "Ujian", "Nilai", "Perwalian", "Tugas", "Pembelajaran"
+    Akademik: [
+      "Dosen",
+      "KRS",
+      "Jadwal",
+      "Ujian",
+      "Nilai",
+      "Perwalian",
+      "Tugas",
+      "Pembelajaran"
     ],
     "Non Akademik": [
-      "Fasilitas", "Keamanan", "Kebersihan", "Kantin", "WiFi / Internet", "Parkiran", "Administrasi", "Layanan Mahasiswa"
+      "Fasilitas",
+      "Keamanan",
+      "Kebersihan",
+      "Kantin",
+      "WiFi / Internet",
+      "Parkiran",
+      "Administrasi",
+      "Layanan Mahasiswa"
     ]
   };
 
   const jenisOptions = [
-    "Komplain", "Saran", "Permintaan", "Kerusakan", "Kehilangan", "Lainnya"
+    "Komplain",
+    "Saran",
+    "Permintaan",
+    "Kerusakan",
+    "Kehilangan",
+    "Lainnya"
   ];
 
   const handleSubmit = async (e) => {
@@ -56,7 +77,6 @@ export default function FormPengaduan() {
 
     try {
       const user = JSON.parse(localStorage.getItem("user"));
-
       const payload = {
         idUser: user.idUser,
         nama: form.nama,
@@ -71,7 +91,6 @@ export default function FormPengaduan() {
       };
 
       await pengaduanAPI.create(payload);
-
       setForm({
         nama: "",
         nim: "",
@@ -82,7 +101,6 @@ export default function FormPengaduan() {
         jenis: "",
         keterangan: ""
       });
-
       setIsSuccess(true);
       setTimeout(() => setIsSuccess(false), 3000);
     } catch (error) {
@@ -96,68 +114,124 @@ export default function FormPengaduan() {
   };
 
   return (
-    <div className="min-h-screen bg-blue-50 p-6 flex justify-center items-center">
-      <div className="bg-white rounded-xl shadow-lg w-full max-w-4xl p-8 space-y-6">
-        <h2 className="text-3xl font-bold text-center text-blue-700">Form Pengaduan Mahasiswa</h2>
+    <div className=" from-blue-200 via-purple-200 to-pink-200 flex items-center justify-center px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl w-full max-w-5xl p-10"
+      >
+        <h2 className="text-4xl font-extrabold text-center text-indigo-700 mb-4">
+          📝 Form Pengaduan Mahasiswa
+        </h2>
+
         {isSuccess && (
-          <div className="text-green-600 text-sm text-center">
+          <div className="bg-green-100 border border-green-300 text-green-700 text-center py-2 rounded mb-4">
             Pengaduan berhasil dikirim!
           </div>
         )}
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
+          {["nama", "nim", "kelas"].map((field) => (
+            <div key={field}>
+              <label className="block text-sm font-semibold mb-1 capitalize">
+                {field}
+              </label>
+              <input
+                name={field}
+                value={form[field]}
+                onChange={handleChange}
+                className="w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              />
+            </div>
+          ))}
+
           <div>
-            <label className="block text-sm font-medium mb-1">Nama</label>
-            <input name="nama" onChange={handleChange} value={form.nama} className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            <label className="block text-sm font-semibold mb-1">Tanggal</label>
+            <input
+              type="date"
+              name="tanggal"
+              value={form.tanggal}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            />
           </div>
+
           <div>
-            <label className="block text-sm font-medium mb-1">NIM</label>
-            <input name="nim" onChange={handleChange} value={form.nim} className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Kelas</label>
-            <input name="kelas" onChange={handleChange} value={form.kelas} className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Tanggal</label>
-            <input type="date" name="tanggal" onChange={handleChange} value={form.tanggal} className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Kategori</label>
-            <select name="kategori" onChange={handleChange} value={form.kategori} className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <label className="block text-sm font-semibold mb-1">Kategori</label>
+            <select
+              name="kategori"
+              value={form.kategori}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            >
               <option value="">-- Pilih Kategori --</option>
               <option value="Akademik">Akademik</option>
               <option value="Non Akademik">Non Akademik</option>
             </select>
           </div>
+
           <div>
-            <label className="block text-sm font-medium mb-1">Sub-Kategori</label>
-            <select name="subKategori" onChange={handleChange} value={form.subKategori} className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" disabled={!form.kategori}>
+            <label className="block text-sm font-semibold mb-1">Sub-Kategori</label>
+            <select
+              name="subKategori"
+              value={form.subKategori}
+              onChange={handleChange}
+              disabled={!form.kategori}
+              className="w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            >
               <option value="">-- Pilih Sub-Kategori --</option>
-              {form.kategori && subKategoriOptions[form.kategori].map((sub) => (
-                <option key={sub} value={sub}>{sub}</option>
-              ))}
+              {form.kategori &&
+                subKategoriOptions[form.kategori].map((sub) => (
+                  <option key={sub} value={sub}>
+                    {sub}
+                  </option>
+                ))}
             </select>
           </div>
+
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium mb-1">Jenis</label>
-            <select name="jenis" onChange={handleChange} value={form.jenis} className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <label className="block text-sm font-semibold mb-1">Jenis</label>
+            <select
+              name="jenis"
+              value={form.jenis}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            >
               <option value="">-- Pilih Jenis --</option>
-              {jenisOptions.map((j) => (
-                <option key={j} value={j}>{j}</option>
+              {jenisOptions.map((jenis) => (
+                <option key={jenis} value={jenis}>
+                  {jenis}
+                </option>
               ))}
             </select>
           </div>
+
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium mb-1">Keterangan</label>
-            <textarea name="keterangan" onChange={handleChange} value={form.keterangan} rows="4" className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            <label className="block text-sm font-semibold mb-1">Keterangan</label>
+            <textarea
+              name="keterangan"
+              value={form.keterangan}
+              onChange={handleChange}
+              rows="4"
+              placeholder="Ceritakan detail pengaduanmu di sini..."
+              className="w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            />
           </div>
-          <div className="md:col-span-2 text-right">
-            <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium shadow">
-              Kirim Pengaduan
+
+          <div className="md:col-span-2 flex justify-end">
+            <button
+              type="submit"
+              className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-semibold flex items-center gap-2 shadow-lg"
+            >
+              <FaPaperPlane /> Kirim Pengaduan
             </button>
           </div>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 }

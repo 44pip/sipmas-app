@@ -30,6 +30,77 @@ body {
   min-height: 100vh;
 }
 
+/* Performance optimizations for smooth animations */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Hardware acceleration for smooth animations */
+.motion-safe {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Optimize text rendering */
+body, input, textarea, button {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Mobile touch optimizations */
+button, a, [role="button"], [tabindex] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Smooth transitions for all interactive elements */
+button, a, [role="button"] {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced mobile scrolling */
+html, body {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Prevent mobile safari bounce */
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Smooth mobile interactions */
+@media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;

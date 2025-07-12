@@ -114,19 +114,19 @@ export default function FormPengaduan() {
   };
 
   return (
-    <div className=" from-blue-200 via-purple-200 to-pink-200 flex items-center justify-center px-4">
+    <div className="bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center px-4">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl w-full max-w-5xl p-10"
       >
-        <h2 className="text-4xl font-extrabold text-center text-indigo-700 mb-4">
+        <h2 className="text-4xl font-extrabold text-center text-blue-700 mb-4">
           📝 Form Pengaduan Mahasiswa
         </h2>
 
         {isSuccess && (
-          <div className="bg-green-100 border border-green-300 text-green-700 text-center py-2 rounded mb-4">
+          <div className="bg-blue-100 border border-blue-300 text-blue-700 text-center py-2 rounded mb-4">
             Pengaduan berhasil dikirim!
           </div>
         )}

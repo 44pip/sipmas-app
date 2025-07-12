@@ -116,7 +116,7 @@ export default function Register() {
       {/* Tombol Daftar */}
       <button
         type="submit"
-        className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 rounded-lg transition duration-300 flex items-center justify-center"
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg transition duration-300 flex items-center justify-center"
         disabled={loading}
       >
         {loading ? (

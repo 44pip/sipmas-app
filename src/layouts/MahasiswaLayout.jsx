@@ -42,7 +42,7 @@ export default function MahasiswaLayout() {
 
           {/* Logo */}
           <div className="flex justify-center">
-            <img src="/img/logo.png" alt="Logo SIPMAS" className="h-12" />
+            <img src="/img/logo.png" alt="Logo SIPMAS" className="w-12" />
           </div>
 
           {/* Logout Icon */}

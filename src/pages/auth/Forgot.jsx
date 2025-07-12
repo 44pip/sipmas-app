@@ -16,7 +16,7 @@ export default function Forgot() {
         <input
           type="email"
           placeholder="Masukkan email"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -26,7 +26,7 @@ export default function Forgot() {
       {/* Tombol Reset */}
       <button
         type="submit"
-        className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2.5 rounded-lg transition duration-300"
+        className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2.5 rounded-lg transition duration-300"
       >
         Kirim Link Reset
       </button>

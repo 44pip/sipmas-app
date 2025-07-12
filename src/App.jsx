@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import "./assets/tailwind.css";
 import { Route, Routes } from "react-router-dom";
 import './App.css';
+import { ToastProvider } from "./components/Toast";
 
 const Loading = React.lazy(() => import("./components/Loading"));
 
@@ -29,30 +30,32 @@ const Guest = React.lazy(() => import("./pages/Guest"));
 
 function App() {
   return (
-    <Suspense fallback={<Loading />}>
-      <Routes>
-        <Route element={<AdminLayout />}>
-          <Route path="adminDashboard" element={<AdminDashboard />} />
-          <Route path="pengaduan" element={<DataPengaduan />} />
-          <Route path="detailPengaduan/:id" element={<DetailPengaduan />} />
-          <Route path="users" element={<User />} />
-        </Route>
+    <ToastProvider>
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route element={<AdminLayout />}>
+            <Route path="adminDashboard" element={<AdminDashboard />} />
+            <Route path="pengaduan" element={<DataPengaduan />} />
+            <Route path="detailPengaduan/:id" element={<DetailPengaduan />} />
+            <Route path="users" element={<User />} />
+          </Route>
 
-        <Route element={<AuthLayout />}>
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="forgot" element={<Forgot />} />
-        </Route>
+          <Route element={<AuthLayout />}>
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="forgot" element={<Forgot />} />
+          </Route>
 
-        <Route element={<MahasiswaLayout />}>
-          <Route path="formPengaduan" element={<FormPengaduan />} />
-          <Route path="riwayat" element={<Riwayat />} />
-        </Route>
-        <Route element={<GuestLayout />}>
-          <Route path="/" element={<Guest />} />
-        </Route>
-      </Routes>
-    </Suspense>
+          <Route element={<MahasiswaLayout />}>
+            <Route path="formPengaduan" element={<FormPengaduan />} />
+            <Route path="riwayat" element={<Riwayat />} />
+          </Route>
+          <Route element={<GuestLayout />}>
+            <Route path="/" element={<Guest />} />
+          </Route>
+        </Routes>
+      </Suspense>
+    </ToastProvider>
   );
 }
 

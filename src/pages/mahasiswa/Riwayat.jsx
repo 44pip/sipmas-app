@@ -53,7 +53,7 @@ export default function Riwayat() {
           transition={{ duration: 0.6 }}
           className="max-w-7xl mx-auto"
         >
-          <h1 className="text-4xl font-bold text-indigo-700 text-center mb-10">
+          <h1 className="text-4xl font-bold text-blue-700 text-center mb-10">
             🗂️ Riwayat Pengaduan Anda
           </h1>
 
@@ -70,13 +70,13 @@ export default function Riwayat() {
                     <span className="text-sm text-gray-500">
                       {dayjs(item.created_at).format("DD MMMM YYYY")}
                     </span>
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full shadow-sm bg-yellow-100 text-yellow-700">
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full shadow-sm bg-blue-100 text-blue-700">
                       {item.status.toUpperCase()}
                     </span>
                   </div>
 
-                  <h2 className="text-xl font-bold text-indigo-700 mb-2 flex items-center gap-2 truncate">
-                    <FaFileAlt className="text-indigo-400" />
+                  <h2 className="text-xl font-bold text-blue-700 mb-2 flex items-center gap-2 truncate">
+                    <FaFileAlt className="text-blue-400" />
                     {item.judul || "Pengaduan"}
                   </h2>
 
@@ -87,7 +87,7 @@ export default function Riwayat() {
                   </div>
 
                   <div className="text-right">
-                    <button onClick={() => handleDetailClick(item)} className="text-sm text-indigo-600 hover:underline font-medium transition">
+                    <button onClick={() => handleDetailClick(item)} className="text-sm text-blue-600 hover:underline font-medium transition">
                       Lihat Selengkapnya
                     </button>
                   </div>
@@ -109,13 +109,13 @@ export default function Riwayat() {
                     <span className="text-sm text-gray-500">
                       {dayjs(item.created_at).format("DD MMMM YYYY")}
                     </span>
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full shadow-sm bg-green-100 text-green-700">
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full shadow-sm bg-blue-100 text-blue-700">
                       {item.status.toUpperCase()}
                     </span>
                   </div>
 
-                  <h2 className="text-xl font-bold text-indigo-700 mb-2 flex items-center gap-2 truncate">
-                    <FaFileAlt className="text-indigo-400" />
+                  <h2 className="text-xl font-bold text-blue-700 mb-2 flex items-center gap-2 truncate">
+                    <FaFileAlt className="text-blue-400" />
                     {item.judul || "Pengaduan"}
                   </h2>
 
@@ -126,7 +126,7 @@ export default function Riwayat() {
                   </div>
 
                   <div className="text-right">
-                    <button onClick={() => handleDetailClick(item)} className="text-sm text-indigo-600 hover:underline font-medium transition">
+                    <button onClick={() => handleDetailClick(item)} className="text-sm text-blue-600 hover:underline font-medium transition">
                       Lihat Selengkapnya
                     </button>
                   </div>
@@ -144,31 +144,66 @@ export default function Riwayat() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-white/10"
+            className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-white/10 p-4"
           >
             <motion.div
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}
-              className="bg-white rounded-2xl p-8 max-w-3xl w-full shadow-2xl relative"
+              className="bg-white rounded-2xl shadow-2xl relative w-full max-w-3xl max-h-[90vh] flex flex-col"
             >
-              <button onClick={closeModal} className="absolute top-4 right-4 text-gray-500 hover:text-red-500">
-                <FaTimes size={20} />
-              </button>
-              <h3 className="text-2xl font-bold text-indigo-700 mb-6 border-b pb-2">Detail Pengaduan</h3>
-              <div className="space-y-3 text-gray-700 text-sm">
-                <p><span className="font-semibold">Tanggal:</span> {dayjs(selectedPengaduan.created_at).format("DD MMMM YYYY")}</p>
-                <p><span className="font-semibold">Kategori:</span> {selectedPengaduan.kategori}</p>
-                <p><span className="font-semibold">Sub-Kategori:</span> {selectedPengaduan.tag}</p>
-                <p><span className="font-semibold">Jenis:</span> {selectedPengaduan.jenis}</p>
-                <p><span className="font-semibold">Status:</span> {selectedPengaduan.status}</p>
-                <p><span className="font-semibold">Isi Laporan:</span><br />{selectedPengaduan.subject}</p>
-                {selectedPengaduan.balasan && (
-                  <div className="mt-4 p-4 bg-indigo-50 rounded-xl border border-indigo-100">
-                    <p className="font-semibold text-indigo-600 mb-1">Balasan Admin:</p>
-                    <p className="text-sm text-gray-700">{selectedPengaduan.balasan}</p>
+              {/* Header - Fixed */}
+              <div className="flex items-center justify-between p-6 border-b border-gray-200 flex-shrink-0">
+                <h3 className="text-2xl font-bold text-blue-700">Detail Pengaduan</h3>
+                <button 
+                  onClick={closeModal} 
+                  className="text-gray-500 hover:text-red-500 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  <FaTimes size={20} />
+                </button>
+              </div>
+              
+              {/* Content - Scrollable */}
+              <div className="flex-1 overflow-y-auto p-6">
+                <div className="space-y-4 text-gray-700 text-sm">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="bg-gray-50 rounded-xl p-4">
+                      <span className="font-semibold text-gray-600">Tanggal:</span>
+                      <p className="text-gray-900 mt-1">{dayjs(selectedPengaduan.created_at).format("DD MMMM YYYY")}</p>
+                    </div>
+                    <div className="bg-gray-50 rounded-xl p-4">
+                      <span className="font-semibold text-gray-600">Status:</span>
+                      <p className="text-gray-900 mt-1">{selectedPengaduan.status}</p>
+                    </div>
                   </div>
-                )}
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="bg-gray-50 rounded-xl p-4">
+                      <span className="font-semibold text-gray-600">Kategori:</span>
+                      <p className="text-gray-900 mt-1">{selectedPengaduan.kategori}</p>
+                    </div>
+                    <div className="bg-gray-50 rounded-xl p-4">
+                      <span className="font-semibold text-gray-600">Sub-Kategori:</span>
+                      <p className="text-gray-900 mt-1">{selectedPengaduan.tag}</p>
+                    </div>
+                    <div className="bg-gray-50 rounded-xl p-4">
+                      <span className="font-semibold text-gray-600">Jenis:</span>
+                      <p className="text-gray-900 mt-1">{selectedPengaduan.jenis}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gray-50 rounded-xl p-4">
+                    <span className="font-semibold text-gray-600">Isi Laporan:</span>
+                    <p className="text-gray-900 mt-2 leading-relaxed">{selectedPengaduan.subject}</p>
+                  </div>
+                  
+                  {selectedPengaduan.balasan && (
+                    <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
+                      <p className="font-semibold text-blue-600 mb-2">Balasan Admin:</p>
+                      <p className="text-sm text-gray-700 leading-relaxed">{selectedPengaduan.balasan}</p>
+                    </div>
+                  )}
+                </div>
               </div>
             </motion.div>
           </motion.div>

@@ -47,7 +47,7 @@ export default function Sidebar({ isOpen, onClose }) {
           damping: 25,
           mass: 0.8
         }}
-        className={`fixed lg:relative lg:translate-x-0 z-50 w-72 lg:w-64 bg-gradient-to-b from-primary-800 via-primary-900 to-blue-900 text-white flex flex-col justify-between min-h-screen shadow-2xl ${
+        className={`fixed lg:relative lg:translate-x-0 z-50 w-72 lg:w-64 bg-gradient-to-b from-blue-200 via-blue-350 to-indigo-800 text-white flex flex-col justify-between min-h-screen shadow-2xl ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 transition-transform duration-300`}
       >

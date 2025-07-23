@@ -58,7 +58,7 @@ export default function SidebarMenu({ onItemClick }) {
                     rotate: [0, 8, -8, 0],
                     transition: { duration: 0.4 }
                   }}
-                  className={`relative z-10 ${isActive ? "text-blue-300" : "text-current group-hover:text-blue-200"}`}
+                  className={`relative z-10 ${isActive ? "text-blue-500" : "text-gray-300 group-hover:text-blue-500"}`}
                 >
                   {menu.icon}
                 </motion.div>

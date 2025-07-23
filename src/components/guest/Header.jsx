@@ -82,7 +82,9 @@ export default function HeaderGuest() {
               >
                 <Link
                   to="/login"
-                  className="ml-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-2.5 rounded-xl shadow-medium hover:shadow-strong font-semibold transition-all duration-300 hover:from-primary-700 hover:to-primary-800"
+                  className="ml-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2.5 rounded-xl shadow-md hover:shadow-strong font-semibold transition-all duration-300 hover:from-blue-700 hover:to-blue-800"
+
+                  // className="ml-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-2.5 rounded-xl shadow-medium hover:shadow-strong font-semibold transition-all duration-300 hover:from-primary-700 hover:to-primary-800"
                 >
                   Login
                 </Link>

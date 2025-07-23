@@ -10,14 +10,22 @@ const API_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhlYWZtZ2JxcXN5bmJkbmNxc2ZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk5NDQyNzEsImV4cCI6MjA2NTUyMDI3MX0.b8ALiTeEYd8qJ5eyOYk7CIfz2SKdtH6BRLrGpkBkAnM";
 
 
+
 export default function Register() {
   const [form, setForm] = useState({ nama: "", email: "", password: "", confirmPassword: "" });
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [errorPassword, setErrorPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validasi panjang password
+    if (form.password.length < 6) {
+      setErrorPassword("Password minimal 6 karakter.");
+      return;
+    }
 
     if (form.password !== form.confirmPassword) {
       alert("Konfirmasi password tidak cocok.");
@@ -45,6 +53,7 @@ export default function Register() {
       );
       alert("Registrasi berhasil!");
       setForm({ nama: "", email: "", password: "", confirmPassword: "" });
+      setErrorPassword("");
       window.location.href = "/login";
     } catch (error) {
       console.error("Register error:", error);
@@ -56,6 +65,11 @@ export default function Register() {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+
+    // Reset error password jika user mulai mengetik ulang
+    if (e.target.name === "password") {
+      setErrorPassword("");
+    }
   };
 
   return (
@@ -129,7 +143,9 @@ export default function Register() {
             type={showPassword ? "text" : "password"}
             name="password"
             placeholder="Password"
-            className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            className={`w-full pl-10 pr-10 py-3 border rounded-xl focus:ring-2 focus:outline-none ${
+              errorPassword ? "border-red-400 ring-red-300 bg-red-50" : "border-gray-300 ring-blue-500"
+            }`}
             value={form.password}
             onChange={handleChange}
             required
@@ -140,6 +156,9 @@ export default function Register() {
           >
             {showPassword ? <AiFillEyeInvisible size={20} /> : <AiFillEye size={20} />}
           </span>
+          {errorPassword && (
+            <p className="text-sm text-red-600 mt-1">{errorPassword}</p>
+          )}
         </div>
 
         {/* Konfirmasi Password */}

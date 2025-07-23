@@ -57,7 +57,7 @@ export default function AdminDashboard() {
       const allPengaduan = await pengaduanAPI.fetchAll();
       const sorted = allPengaduan
         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-        .slice(0, 5);
+        .slice(0, 3);
       setPengaduanTerbaru(sorted);
     } catch (err) {
       console.error("❌ Gagal ambil pengaduan terbaru:", err);

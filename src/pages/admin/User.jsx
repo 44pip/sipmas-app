@@ -22,7 +22,7 @@ export default function UserPage() {
   const [mahasiswaList, setMahasiswaList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState("admin");
+  const [activeTab, setActiveTab] = useState("mahasiswa");
   const [deleteDialog, setDeleteDialog] = useState({ show: false, id: null, type: null });
   const { showSuccess, showError } = useToast();
 

@@ -54,7 +54,7 @@ export default function Login() {
 
     try {
       const res = await axios.get(
-        `${BASE_URL}/user?email=eq.${encodeURIComponent(form.email)}&select=*`,
+        `${BASE_URL}/user?email=eq.${encodeURIComponent(form.email.toLowerCase())}&select=*`,
         { headers }
       );
 

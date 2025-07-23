@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { pengaduanAPI } from "../../services/pengaduanApi";
+import { userAPI } from "../../services/userApi";
 import { useNavigate } from "react-router-dom";
 import { FaPaperPlane } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -8,11 +9,29 @@ export default function FormPengaduan() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (!user) {
-      alert("Silakan login terlebih dahulu untuk mengakses form pengaduan.");
-      navigate("/login");
-    }
+    const fetchUserData = async () => {
+      const user = localStorage.getItem("user");
+      if (!user) {
+        alert("Silakan login terlebih dahulu untuk mengakses form pengaduan.");
+        navigate("/login");
+        return;
+      }
+
+      const parsedUser = JSON.parse(user);
+      try {
+        const userDetail = await userAPI.getUserById(parsedUser.idUser);
+        setForm((prev) => ({
+          ...prev,
+          nama: userDetail.nama || "",
+          nim: userDetail.nim || "",
+          kelas: userDetail.kelas || "",
+        }));
+      } catch (error) {
+        console.error("❌ Gagal mengambil data user:", error);
+      }
+    };
+
+    fetchUserData();
   }, []);
 
   const today = new Date().toISOString().split("T")[0];
@@ -25,7 +44,7 @@ export default function FormPengaduan() {
     kategori: "",
     subKategori: "",
     jenis: "",
-    keterangan: ""
+    keterangan: "",
   });
 
   const [isSuccess, setIsSuccess] = useState(false);
@@ -39,7 +58,7 @@ export default function FormPengaduan() {
       "Nilai",
       "Perwalian",
       "Tugas",
-      "Pembelajaran"
+      "Pembelajaran",
     ],
     "Non Akademik": [
       "Fasilitas",
@@ -49,8 +68,8 @@ export default function FormPengaduan() {
       "WiFi / Internet",
       "Parkiran",
       "Administrasi",
-      "Layanan Mahasiswa"
-    ]
+      "Layanan Mahasiswa",
+    ],
   };
 
   const jenisOptions = [
@@ -59,7 +78,7 @@ export default function FormPengaduan() {
     "Permintaan",
     "Kerusakan",
     "Kehilangan",
-    "Lainnya"
+    "Lainnya",
   ];
 
   const handleSubmit = async (e) => {
@@ -87,7 +106,7 @@ export default function FormPengaduan() {
         kategori: form.kategori,
         tag: form.subKategori,
         jenis: form.jenis,
-        created_at: form.tanggal
+        created_at: form.tanggal,
       };
 
       await pengaduanAPI.create(payload);
@@ -99,7 +118,7 @@ export default function FormPengaduan() {
         kategori: "",
         subKategori: "",
         jenis: "",
-        keterangan: ""
+        keterangan: "",
       });
       setIsSuccess(true);
       setTimeout(() => setIsSuccess(false), 3000);
@@ -140,12 +159,19 @@ export default function FormPengaduan() {
               <label className="block text-sm font-semibold mb-1 capitalize">
                 {field}
               </label>
-              <input
-                name={field}
-                value={form[field]}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-              />
+
+              {field === "nama" ? (
+                <div className="w-full px-4 py-2 rounded-xl border border-blue-200 bg-blue-50 text-blue-700 font-semibold">
+                  {form.nama || "-"}
+                </div>
+              ) : (
+                <input
+                  name={field}
+                  value={form[field]}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                />
+              )}
             </div>
           ))}
 
@@ -175,7 +201,9 @@ export default function FormPengaduan() {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold mb-1">Sub-Kategori</label>
+            <label className="block text-sm font-semibold mb-1">
+              Sub-Kategori
+            </label>
             <select
               name="subKategori"
               value={form.subKategori}
@@ -211,7 +239,9 @@ export default function FormPengaduan() {
           </div>
 
           <div className="md:col-span-2">
-            <label className="block text-sm font-semibold mb-1">Keterangan</label>
+            <label className="block text-sm font-semibold mb-1">
+              Keterangan
+            </label>
             <textarea
               name="keterangan"
               value={form.keterangan}

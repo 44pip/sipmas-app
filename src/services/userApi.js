@@ -24,6 +24,16 @@ export const userAPI = {
     );
     return res.data.length;
   },
+
+  async getUserById(idUser) {
+    const res = await axios.get(
+      `${BASE_URL}/user?idUser=eq.${idUser}&select=*`,
+      {
+        headers,
+      }
+    );
+    return res.data[0]; // karena hasilnya array
+  },
 };
 
 export const statistikAPI = {

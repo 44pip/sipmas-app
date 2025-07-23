@@ -8,7 +8,8 @@ export default function MahasiswaLayout() {
   const navigate = useNavigate();
   const [namaUser, setNamaUser] = useState("");
 
-  const activeClass = "text-blue-600 font-semibold underline underline-offset-8 font-barlow";
+  const activeClass =
+    "text-blue-600 font-semibold underline underline-offset-8 font-barlow";
   const inactiveClass = "text-gray-600 hover:text-blue-600 font-barlow";
 
   const handleLogout = () => {
@@ -28,10 +29,8 @@ export default function MahasiswaLayout() {
   return (
     <div className="min-h-screen bg-blue-50 p-6 font-poppins">
       <div className="max-w-4xl mx-auto">
-
         {/* Header Atas */}
         <div className="flex justify-between items-center mb-4 px-2">
-
           {/* Profil + Nama */}
           <div className="flex items-center space-x-2 px-4 py-1 rounded-full bg-transparent shadow-sm">
             <FaUserCircle className="text-biru" size={24} />
@@ -48,8 +47,8 @@ export default function MahasiswaLayout() {
           {/* Logout Icon */}
           <button
             onClick={handleLogout}
-            className="text-gray-600 hover:text-merah transition duration-200"
-            title="Logout"
+            title="Keluar"
+            className="p-2 rounded-full text-gray-600 hover:text-white hover:bg-red-500 transition-all duration-300"
           >
             <FiLogOut size={22} />
           </button>
@@ -59,13 +58,21 @@ export default function MahasiswaLayout() {
         <div className="flex space-x-8 px-6 mb-4 justify-center">
           <Link
             to="/formPengaduan"
-            className={location.pathname.includes("formPengaduan") ? activeClass : inactiveClass}
+            className={
+              location.pathname.includes("formPengaduan")
+                ? activeClass
+                : inactiveClass
+            }
           >
             Tambah Pengaduan
           </Link>
           <Link
             to="/riwayat"
-            className={location.pathname.includes("riwayat") ? activeClass : inactiveClass}
+            className={
+              location.pathname.includes("riwayat")
+                ? activeClass
+                : inactiveClass
+            }
           >
             Riwayat Pengaduan
           </Link>
